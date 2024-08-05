@@ -1,5 +1,7 @@
  **Project Name :World_Layoff_Data Data Cleaning Using Mysql**
 
+**Steps for Data Importing**:
+
 **Data Loading**: Imported the layoffs CSV file into MySQL:
 
  **1.Create Schema**: Set up the database schema and table structure for the world layoffs data.
