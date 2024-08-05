@@ -1,4 +1,4 @@
-**World_Layoff_Data Data Cleaning Using Mysql**
+ **Project Name :World_Layoff_Data Data Cleaning Using Mysql**
 
 **Data Loading**: Imported the layoffs CSV file into MySQL:
 
