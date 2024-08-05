@@ -1,5 +1,5 @@
 
-1.Retriving Data from table**
+**1.Retriving Data from table**
 
 select * from layoffs;
 
