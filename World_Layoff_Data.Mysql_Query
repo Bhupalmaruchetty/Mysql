@@ -1,78 +1,80 @@
-
-**1.Retriving Data from table**
-
-  select * from layoffs;
+          **Data Cleaning Using Mysql** 
 
 
-**2.Total Rows count**
+          **1.Retriving Data from table**
 
-select count(*)
-from layoffs;
-
-
-**Stagging and Raw Data set creation**
-
-Create table layoff_stagging
-like layoffs;
-
-**Checking layoff_stagging table** 
-
-select * from layoff_stagging;
+             SELECT * from layoffs;
 
 
-**Insert Data into stagging or Raw table from Layoffs table**
+          **2.Total Rows count**
 
-      Insert layoff_stagging
-      select * from layoffs;
-
-
-
-**Retriving Data from layoff_stagging table **
-
-      select * from layoff_stagging;
+           SELECT count(*)
+           from layoffs;
 
 
-**1.Removing Duplicates**
+       **Stagging and Raw Data set creation**
 
-select *,
-row_number() over(
-Partition by company,location,industry,total_laid_off,percentage_laid_off, 'date') as row_num
- from layoff_stagging;
+        CREATE TABLE layoff_stagging
+        LIKE layoffs;
+
+      **Checking layoff_stagging table** 
+
+        select * from layoff_stagging;
+
+
+       **Insert Data into stagging or Raw table from Layoffs table**
+
+        INSERT layoff_stagging
+        SELECT * FROM layoffs;
+
+
+
+        **Retriving Data from layoff_stagging table **
+
+         SELECT * FROM layoff_stagging;
+
+
+        **1.Removing Duplicates**
+
+         SELECT *,
+         ROW_NUMBER() OVER(
+         PARTITION BY company,location,industry,total_laid_off,percentage_laid_off, 'date') as row_num
+         FROM layoff_stagging;
  
  
  
-**Identifing Duplicate using windows functions and using CTE statement**
+        **Identifing Duplicate using windows functions and using CTE statement**
  
- WITH duplicate_cte AS
- (select *,
-row_number() over(
-Partition by company,location,industry,total_laid_off,percentage_laid_off, 'date',stage,country,funds_raised_millions) as row_num
- from layoff_stagging
- )
- select *
- from duplicate_cte
- where row_num >1;
- 
- 
-**Checking particular company name duplicates using Where function**
- 
- select * from layoff_stagging
- where company="Ola";
+        WITH duplicate_cte AS
+          (SELECT *,
+           ROW_NUMBER() OVER(
+           PARTITION BY company,location,industry,total_laid_off,percentage_laid_off, 'date',stage,country,funds_raised_millions) as ROW_NUM
+        FROM layoff_stagging
+       )
+        SELECT *
+        FROM duplicate_cte
+        WHERE ROW_NUM >1;
  
  
+       **Checking particular company name duplicates using Where function**
+ 
+        SELECT * FROM layoff_stagging
+        WHERE company="Ola";
  
  
-**Removing duplicates **
  
-  WITH duplicate_cte AS
- (select *,
-row_number() over(
-Partition by company,location,industry,total_laid_off,percentage_laid_off, 'date',stage,country,funds_raised_millions) as row_num
- from layoff_stagging
- )
- delete 
- from duplicate_cte
- where row_num >1;
+ 
+        **Removing duplicates **
+ 
+          WITH duplicate_cte AS
+         (SELECT *,
+         ROW_NUMBER() OVER(
+         PARTITION BY company,location,industry,total_laid_off,percentage_laid_off, 'date',stage,country,funds_raised_millions) as ROW_NUM
+         FROM layoff_stagging
+        )
+        DELETE 
+        FROM duplicate_cte
+        WHERE row_num >1;
  
  
  
